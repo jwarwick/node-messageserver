@@ -8,6 +8,8 @@
 
 ## Usage
 
+Server runs on port 8000 by default.
 POST json messages to the `/messages` url and they are displayed on connected clients.
 
-`% curl -v -H "Content-Type: application/json" -X POST -d '{"msg" : "contents"}' http://127.0.0.1:8000/messages`
+    % node server.js
+    % curl -v -H "Content-Type: application/json" -X POST -d '{"msg" : "contents"}' http://127.0.0.1:8000/messages
