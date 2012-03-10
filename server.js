@@ -25,8 +25,10 @@ app.get('/', function(req, res) {
 
 // websocket config info
 app.get('/config.json', function(req, res) {
-  var json = {port: 8000};
-  res.json(json, 200);
+  var configData = {
+    port: 8000
+  };
+  res.json(configData, 200);
 });
 
 // To post data, use something like this:
