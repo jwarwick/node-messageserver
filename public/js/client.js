@@ -6,14 +6,6 @@ jQuery(document).ready(function($) {
                                     + ":" + config.port + '/faye', {
       timeout: 120
     });
-
-    self.client.subscribe('/messages', function(message) {
-      console.log("Message: " + message);
-      $("<p>" + JSON.stringify(message) + "</p>")
-        .hide()
-        .appendTo('#messages')
-        .fadeIn();
-    });
     
     self.client.subscribe('/data', function(data) {
       console.log("Data: " + data);
@@ -21,8 +13,14 @@ jQuery(document).ready(function($) {
         .hide()
         .appendTo('#messages')
         .fadeIn();
-               
-        self.line1.append(data.time, data.data);
+      
+      if (self.lines[data.id] == undefined) {
+        self.lines[data.id] = new TimeSeries();
+        self.smoothie.addTimeSeries(self.lines[data.id],
+          { strokeStyle:'rgb(0, 255, 0)', fillStyle:'rgba(0, 255, 0, 0.4)', lineWidth:3 });
+      }
+      
+      self.lines[data.id].append(data.time, data.data);
     });
   });
   
@@ -30,12 +28,5 @@ jQuery(document).ready(function($) {
   self.smoothie = new SmoothieChart();
   self.smoothie.streamTo(document.getElementById("my_canvas"), 1000);
   
-  self.line1 = new TimeSeries();
-  self.line2 = new TimeSeries();
-  
-  self.smoothie.addTimeSeries(self.line1,
-    { strokeStyle:'rgb(0, 255, 0)', fillStyle:'rgba(0, 255, 0, 0.4)', lineWidth:3 });
-  self.smoothie.addTimeSeries(self.line2, 
-    { strokeStyle:'rgb(255, 0, 255)', fillStyle:'rgba(255, 0, 255, 0.3)', lineWidth:3 });
-  
+  self.lines = new Array();
 });
