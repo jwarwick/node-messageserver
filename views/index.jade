@@ -4,8 +4,10 @@ html(lang="en")
 		title WebSocket Message Listener
 		script(src='js/jquery.js')
 		script(src='faye.js')
+		script(src='js/smoothie.js')
 		script(src='js/client.js')
 	body
+		canvas#my_canvas(width = 400, height = 400)
 		h1 Incoming Messages
 		#messages
 			
