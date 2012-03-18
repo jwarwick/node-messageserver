@@ -5,6 +5,7 @@
 * [node.js](http://nodejs.org/)
 * [express](http://expressjs.com/)
 * [Faye](http://faye.jcoglan.com/)
+* [Smoothie Charts](http://smoothiecharts.org/)
 
 ## Usage
 
