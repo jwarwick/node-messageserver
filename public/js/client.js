@@ -8,7 +8,8 @@ jQuery(document).ready(function($) {
     });
     
     self.client.subscribe('/data', function(data) {
-      console.log("Data: " + data);
+      console.log("Data:");
+      console.log(data);
       $("<p>" + JSON.stringify(data) + "</p>")
         .hide()
         .appendTo('#messages')
@@ -16,8 +17,11 @@ jQuery(document).ready(function($) {
       
       if (self.lines[data.id] == undefined) {
         self.lines[data.id] = new TimeSeries();
+        var hue = (data.id * 60) % 360;
         self.smoothie.addTimeSeries(self.lines[data.id],
-          { strokeStyle:'rgb(0, 255, 0)', fillStyle:'rgba(0, 255, 0, 0.4)', lineWidth:3 });
+          { strokeStyle:'hsl(' + hue + ', 100%, 50%)', 
+            fillStyle:'hsla(' + hue + ', 100%, 50%, 0.4)', 
+            lineWidth:3 });
       }
       
       self.lines[data.id].append(data.time, data.data);
